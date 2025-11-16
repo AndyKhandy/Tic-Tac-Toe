@@ -1,4 +1,4 @@
-const button = document.querySelector("#play");
+
 
 
 const GameBoard = (function() {
@@ -51,6 +51,20 @@ const gameController = (function(){
 
     const getCurrentPlayer = () => currentPlayer;
 
+    const switchPlayer = () => currentPlayer = currentPlayer === players.playerOne ? players.playerTwo : players.playerOne;
+
+    function playRound(index)
+    {
+        if (gameOver) return;
+        if(GameBoard.getBox(index) != "") return;
+
+        GameBoard.setBox(index, currentPlayer.token);
+        checkWinner();
+        
+        displayController.showToken(index, currentPlayer.token);
+        switchPlayer();
+    }
+
     function checkWinner()
     {
         for (let pattern of winningPatterns) {
@@ -63,22 +77,39 @@ const gameController = (function(){
             ) {
                 console.log("The player won!")
                 gameOver = true;
-                return;
+                return true;
             }
         }
+        return false;
     }
 
      return {
-            checkWinner,
-            getCurrentPlayer
+            getCurrentPlayer,
+            switchPlayer,
+            playRound,
+            checkWinner
     };
 })();
 
-button.addEventListener("click", ()=>{
-    GameBoard.setBox(0,"X");
-    GameBoard.setBox(1, "X");
-    GameBoard.setBox(2, "X");
+const displayController = (function(){
+    const boxes = document.querySelectorAll(".box");
 
-    gameController.checkWinner();
+    function showToken(index, token)
+    {
+        boxes[index].textContent = token;
+    }
 
-});
+    boxes.forEach(box => {
+        box.addEventListener('click', ()=>{
+            let index = +(box.dataset.index);
+            gameController.playRound(index);
+        });
+    });
+
+
+    return {
+        showToken
+    };
+
+    
+})();

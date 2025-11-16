@@ -1,0 +1,34 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+.title{
+    margin-top: 2%;
+}
+
+.container {
+    margin-top: 3%;
+    width: min(750px, 80vw);
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    gap: 10px;
+}
+
+.box {
+    display: grid;
+    height:300px;
+    font-size: 150px;
+    place-items: center;
+    border: 3px solid blue;
+    border-radius: 10px;
+}
