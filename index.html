@@ -4,23 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Odin Tic-Tac-Toe</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <div class="title">
-    <h1 id="title">Tic Tac Toe</h1>
+<body class="flex flex-col">
+
+    <div class="start">
+        <form class="flex flex-col">
+
+        <div class="playerInput flex">
+
+            <div class="player1Input flex flex-col">
+            <label for="player1-name">Player #1</label>
+            <input type="text" name="player1-name" id="player1-name" placeholder = "John" required>
+            <label for="player1-token">Their Token/Icon</label>
+            <input type="text" id="player1-token" placeholder="X">
+        </div>
+
+        <div class="player2Input flex flex-col">
+            <label for="player2-name">Player #2</label>
+            <input type="text" name="player2-name" id="player2-name" placeholder="Bob">
+            <label for="player2-token">Their Token/Icon</label>
+            <input type="text" id="player2-token" placeholder="O">
+        </div>
+
+        </div>
+
+        <button id="start-btn">Play!</button>
+    </form>
     </div>
 
-    <div class="container">
-        <div class="box" data-index="0"></div>
-        <div class="box" data-index="1"></div>
-        <div class="box" data-index="2"></div>
-        <div class="box" data-index="3"></div>
-        <div class="box" data-index="4"></div>
-        <div class="box" data-index="5"></div>
-        <div class="box" data-index="6"></div>
-        <div class="box" data-index="7"></div>
-        <div class="box" data-index="8"></div>
+    <div class="game">
+
+        <div class="header">
+        <h1 id="title">Tic Tac Toe</h1>
+        <div class="header-buttons">
+            <button id="restart">
+                Restart Game
+            </button>
+            <button id="end">
+                End Game
+            </button>
+        </div>
+        </div>
+
+        <div class="container">
+            <div class="box" data-index="0"></div>
+            <div class="box" data-index="1"></div>
+            <div class="box" data-index="2"></div>
+            <div class="box" data-index="3"></div>
+            <div class="box" data-index="4"></div>
+            <div class="box" data-index="5"></div>
+            <div class="box" data-index="6"></div>
+            <div class="box" data-index="7"></div>
+            <div class="box" data-index="8"></div>
+        </div>
     </div>
 
     

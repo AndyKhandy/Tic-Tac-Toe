@@ -1,4 +1,6 @@
-
+let player1 = {};
+let player2 = {};
+let currentPlayer;
 
 
 const GameBoard = (function() {
@@ -14,9 +16,15 @@ const GameBoard = (function() {
         return gameBoard[index];
     }
 
+    function resetBoard()
+    {
+       gameBoard = ["","","","","","","","",""];
+    }
+
     return {
         setBox,
-        getBox
+        getBox,
+        resetBoard
     };
 
 })();
@@ -24,19 +32,14 @@ const GameBoard = (function() {
 const players = (function(){
     const createPlayer = (name,token) => ({name, token});
 
-    const playerOne = createPlayer("Player 1", "X");
-    const playerTwo = createPlayer("Player 2", "O");
-
     return {
-        playerOne,
-        playerTwo
+        createPlayer
     };
 
 })();
 
 const gameController = (function(){
     let gameOver = false;
-    let currentPlayer = players.playerOne;
 
       const winningPatterns = [
         [0,1,2], 
@@ -49,9 +52,9 @@ const gameController = (function(){
         [6,7,8]
     ];
 
-    const getCurrentPlayer = () => currentPlayer;
+    const switchPlayer = () => currentPlayer = currentPlayer === player1 ? player2 : player1;
 
-    const switchPlayer = () => currentPlayer = currentPlayer === players.playerOne ? players.playerTwo : players.playerOne;
+    const newRound = () => gameOver = false;
 
     function playRound(index)
     {
@@ -75,7 +78,7 @@ const gameController = (function(){
                 GameBoard.getBox(b) === currentPlayer.token &&
                 GameBoard.getBox(c) === currentPlayer.token
             ) {
-                console.log("The player won!")
+                displayController.highLightWinningBox(a,b,c);
                 gameOver = true;
                 return true;
             }
@@ -84,8 +87,8 @@ const gameController = (function(){
     }
 
      return {
-            getCurrentPlayer,
             switchPlayer,
+            newRound,
             playRound,
             checkWinner
     };
@@ -93,10 +96,32 @@ const gameController = (function(){
 
 const displayController = (function(){
     const boxes = document.querySelectorAll(".box");
+    const restartBtn = document.querySelector("#restart");
+    const endBtn = document.querySelector("#end");
+    const container = document.querySelector(".container");
+
+    const startBtn = document.querySelector("#start-btn");
+    const start = document.querySelector(".start");
+    const game = document.querySelector(".game");
 
     function showToken(index, token)
     {
         boxes[index].textContent = token;
+    }
+
+    function highLightWinningBox(a,b,c)
+    {
+        boxes[a].classList.add("active");
+        boxes[b].classList.add("active");
+        boxes[c].classList.add("active");
+    }
+
+    function resetBoxes()
+    {
+        boxes.forEach(box => {
+            box.textContent = "";
+            box.classList.remove("active");
+        });
     }
 
     boxes.forEach(box => {
@@ -106,10 +131,36 @@ const displayController = (function(){
         });
     });
 
+    restartBtn.addEventListener("click", ()=>{
+        gameController.newRound();
+        resetBoxes();
+        GameBoard.resetBoard();
+    });
+
+    endBtn.addEventListener("click", ()=>{
+        resetBoxes();
+        GameBoard.resetBoard();
+        container.style.display = "none";
+    }); 
+
+    startBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        const player1Name = document.querySelector("#player1-name").value;
+        const player2Name = document.querySelector("#player2-name").value;
+        const player1Token = document.querySelector("#player1-token").value;
+        const player2Token = document.querySelector("#player2-token").value;
+
+        player1 = players.createPlayer(player1Name,player1Token);
+        player2 = players.createPlayer(player2Name,player2Token);
+        game.classList.add("active");
+        start.classList.add("active");
+        currentPlayer = player1;
+    });
 
     return {
-        showToken
+        showToken,
+        highLightWinningBox,
+        resetBoxes
     };
-
     
 })();

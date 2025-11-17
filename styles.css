@@ -1,0 +1,113 @@
+form input {
+  font-family: inherit;
+  font-size: 100%;
+  width: 100%;
+  padding: 5px;
+  border: none;
+  outline: 4px double rgb(0, 229, 255)
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.game {
+    display: none;
+}
+
+.game.active {
+    display: block;
+}
+
+.start {
+    background-color: rgb(30, 206, 255);
+    padding: 20px;
+    border-radius: 10px;
+    height: 60vh;
+    width: max(350px, 60vw);
+}
+
+.start.active {
+    display: none;
+}
+
+.start form {
+    height: 100%;
+    justify-content: space-around;
+    position: relative;
+}
+
+form button {
+    width: 90px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    transition: 300ms ease-in;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+form button:hover {
+    background-color:aqua;
+    color: black;
+    border-radius: 10px;
+}
+
+.playerInput {
+    justify-content: space-evenly;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.playerInput div {
+    gap: 20px;
+    width: 40%;
+}
+
+body {
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.header{
+    margin-top: 2%;
+}
+
+.container {
+    margin-top: 3%;
+    width: min(750px, 80vw);
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    gap: 10px;
+}
+
+.box {
+    display: grid;
+    height:200px;
+    font-size: 150px;
+    place-items: center;
+    border: 3px solid blue;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 200ms ease-in;
+}
+
+.box.active {
+    background-color: blue;
+}
