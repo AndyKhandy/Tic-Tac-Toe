@@ -30,7 +30,7 @@ const GameBoard = (function() {
 })();
 
 const players = (function(){
-    const createPlayer = (name,token) => ({name, token});
+    const createPlayer = (name,token) => ({name, token, wins: 0});
 
     return {
         createPlayer
@@ -78,6 +78,14 @@ const gameController = (function(){
                 GameBoard.getBox(b) === currentPlayer.token &&
                 GameBoard.getBox(c) === currentPlayer.token
             ) {
+                if(currentPlayer.token == player1.token)
+                {
+                    player1.wins++;
+                }
+                else{
+                    player2.wins++;
+                }
+                displayController.updateWins();
                 displayController.highLightWinningBox(a,b,c);
                 gameOver = true;
                 return true;
@@ -100,13 +108,28 @@ const displayController = (function(){
     const endBtn = document.querySelector("#end");
     const container = document.querySelector(".container");
 
-    const startBtn = document.querySelector("#start-btn");
+    const form = document.querySelector("form");
     const start = document.querySelector(".start");
     const game = document.querySelector(".game");
+
+    const displayP1Name = document.querySelector("#p1name");
+    const displayP2Name = document.querySelector("#p2name");
+
+    const displayP1Token = document.querySelector("#p1token");
+    const displayP2Token = document.querySelector("#p2token");
+
+    const displayP1score = document.querySelector("#p1score");
+    const displayP2score = document.querySelector("#p2score");
 
     function showToken(index, token)
     {
         boxes[index].textContent = token;
+    }
+
+    function updateWins()
+    {
+        displayP1score.textContent = player1.wins;
+        displayP2score.textContent = player2.wins;
     }
 
     function highLightWinningBox(a,b,c)
@@ -122,6 +145,16 @@ const displayController = (function(){
             box.textContent = "";
             box.classList.remove("active");
         });
+
+    }
+
+    function displayPlayerInfo()
+    {
+        displayP1Name.textContent = player1.name;
+        displayP2Name.textContent = player2.name;
+        displayP1Token.textContent = player1.token;
+        displayP2Token.textContent = player2.token;
+        updateWins();
     }
 
     boxes.forEach(box => {
@@ -132,6 +165,7 @@ const displayController = (function(){
     });
 
     restartBtn.addEventListener("click", ()=>{
+        currentPlayer = player1;
         gameController.newRound();
         resetBoxes();
         GameBoard.resetBoard();
@@ -140,10 +174,11 @@ const displayController = (function(){
     endBtn.addEventListener("click", ()=>{
         resetBoxes();
         GameBoard.resetBoard();
-        container.style.display = "none";
+        game.classList.remove("active");
+        start.classList.remove("active");
     }); 
 
-    startBtn.addEventListener("click", (e)=>{
+    form.addEventListener("submit", (e)=>{
         e.preventDefault();
         const player1Name = document.querySelector("#player1-name").value;
         const player2Name = document.querySelector("#player2-name").value;
@@ -152,13 +187,18 @@ const displayController = (function(){
 
         player1 = players.createPlayer(player1Name,player1Token);
         player2 = players.createPlayer(player2Name,player2Token);
+
         game.classList.add("active");
         start.classList.add("active");
+
+        displayPlayerInfo();
         currentPlayer = player1;
+        form.reset();
     });
 
     return {
         showToken,
+        updateWins,
         highLightWinningBox,
         resetBoxes
     };

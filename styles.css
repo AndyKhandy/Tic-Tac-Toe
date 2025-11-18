@@ -12,6 +12,9 @@ form input {
     padding: 0px;
     box-sizing: border-box;
 }
+.br-10{
+    border-radius: 10px;
+}
 
 .flex {
     display: flex;
@@ -22,19 +25,21 @@ form input {
 }
 
 .game {
+    position: relative;
+    width: 100%;
     display: none;
 }
 
+
 .game.active {
-    display: block;
+    display: flex;
 }
 
 .start {
     background-color: rgb(30, 206, 255);
     padding: 20px;
-    border-radius: 10px;
     height: 60vh;
-    width: max(350px, 60vw);
+    width: max(350px, 50vw);
 }
 
 .start.active {
@@ -78,7 +83,7 @@ form button:hover {
     width: 40%;
 }
 
-body {
+body, .game {
     align-items: center;
     justify-content: center;
     height: 100vh;
@@ -90,7 +95,7 @@ body {
 
 .container {
     margin-top: 3%;
-    width: min(750px, 80vw);
+    width: min(750px, 50vw);
     display: grid;
     grid-template-columns: repeat(3,1fr);
     grid-template-rows: repeat(3,1fr);
@@ -103,11 +108,36 @@ body {
     font-size: 150px;
     place-items: center;
     border: 3px solid blue;
-    border-radius: 10px;
     cursor: pointer;
     transition: 200ms ease-in;
 }
 
 .box.active {
     background-color: blue;
+}
+
+.score {
+    background-color: rgb(109, 141, 229);
+    width: 15vw;
+    height: 40vh;
+    position: absolute;
+    text-align: center;
+    justify-content: center;
+}
+
+.score > p:first-of-type {
+    font-size: 100px;
+    color: white;
+}
+
+.score > p:last-child {
+    font-size: 80px;
+}
+
+.player1box {
+    left: 5%;
+}
+
+.player2box {
+    right: 5%;
 }
