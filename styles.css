@@ -7,11 +7,19 @@ form input {
   outline: 4px double rgb(0, 229, 255)
 }
 
+.walter-turncoat-regular {
+  font-family: "Walter Turncoat", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
 *{
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
 }
+
 .br-10{
     border-radius: 10px;
 }
@@ -22,6 +30,10 @@ form input {
 
 .flex-col {
     flex-direction: column;
+}
+
+body {
+    font-family: "Walter Turncoat";
 }
 
 .game {
@@ -40,37 +52,48 @@ form input {
     padding: 20px;
     height: 60vh;
     width: max(350px, 50vw);
+    position: relative;
 }
 
 .start.active {
     display: none;
 }
 
+.start h1 {
+    color: black;
+    text-align: center;
+    font-size: clamp(20px,2rem + 2vw, 65px);
+}
+
 .start form {
-    height: 100%;
+    height: 70%;
     justify-content: space-around;
-    position: relative;
+}
+
+button {
+    cursor: pointer;
+    padding: 10px;
+    font-weight: bold;
+    font-size: clamp(10px, 0.5rem + 1vw, 20px);
+    font-family: "Walter Turncoat";
+}
+
+button:hover {
+    background-color:aqua;
+    color: black;
+    border-radius: 10px;
+    transition: 300ms ease-in;
 }
 
 form button {
     width: 90px;
-    cursor: pointer;
     position: absolute;
-    bottom: 0px;
-    right: 0px;
-    padding: 10px;
+    bottom: 5%;
+    right: 5%;
     background-color: black;
     color: white;
-    transition: 300ms ease-in;
-    font-weight: bold;
-    font-size: 20px;
 }
 
-form button:hover {
-    background-color:aqua;
-    color: black;
-    border-radius: 10px;
-}
 
 .playerInput {
     justify-content: space-evenly;
@@ -89,9 +112,6 @@ body, .game {
     height: 100vh;
 }
 
-.header{
-    margin-top: 2%;
-}
 
 .container {
     margin-top: 3%;
@@ -114,6 +134,11 @@ body, .game {
 
 .box.active {
     background-color: blue;
+}
+
+.footer-buttons {
+    margin-top: 3%;
+    gap: 50px;
 }
 
 .score {
