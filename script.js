@@ -21,10 +21,17 @@ const GameBoard = (function() {
        gameBoard = ["","","","","","","","",""];
     }
 
+    function fullBoard()
+    {
+        return !gameBoard.includes("")
+    }
+
+
     return {
         setBox,
         getBox,
-        resetBoard
+        resetBoard,
+        fullBoard
     };
 
 })();
@@ -62,10 +69,19 @@ const gameController = (function(){
         if(GameBoard.getBox(index) != "") return;
 
         GameBoard.setBox(index, currentPlayer.token);
-        checkWinner();
-        
         displayController.showToken(index, currentPlayer.token);
-        switchPlayer();
+    
+        if(!checkWinner())
+        {
+            if(GameBoard.fullBoard()){
+                displayController.displayMessage("It was a tie!");
+                gameOver = true;
+            }
+            else{
+                switchPlayer();
+                displayController.displayMessage(`${currentPlayer.name}'s turn!`);
+            }
+        }
     }
 
     function checkWinner()
@@ -86,6 +102,7 @@ const gameController = (function(){
                     player2.wins++;
                 }
                 displayController.updateWins();
+                displayController.displayMessage(`${currentPlayer.name} wins!`);
                 displayController.highLightWinningBox(a,b,c);
                 gameOver = true;
                 return true;
@@ -121,6 +138,8 @@ const displayController = (function(){
     const displayP1score = document.querySelector("#p1score");
     const displayP2score = document.querySelector("#p2score");
 
+    const displayTurn = document.querySelector("#turn");
+
     function showToken(index, token)
     {
         boxes[index].textContent = token;
@@ -145,7 +164,11 @@ const displayController = (function(){
             box.textContent = "";
             box.classList.remove("active");
         });
+    }
 
+    function displayMessage(message)
+    {
+        displayTurn.textContent = message;
     }
 
     function displayPlayerInfo()
@@ -155,6 +178,8 @@ const displayController = (function(){
         displayP1Token.textContent = player1.token;
         displayP2Token.textContent = player2.token;
         updateWins();
+
+        displayMessage(`${player1.name}'s turn!`);
     }
 
     boxes.forEach(box => {
@@ -169,6 +194,7 @@ const displayController = (function(){
         gameController.newRound();
         resetBoxes();
         GameBoard.resetBoard();
+        displayMessage(`${player1.name}'s turn!`);
     });
 
     endBtn.addEventListener("click", ()=>{
@@ -200,7 +226,8 @@ const displayController = (function(){
         showToken,
         updateWins,
         highLightWinningBox,
-        resetBoxes
+        resetBoxes,
+        displayMessage
     };
     
 })();
