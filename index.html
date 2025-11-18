@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Walter+Turncoat&display=swap" rel="stylesheet">
 </head>
 <body class="flex flex-col">
-    <div class="start br-10 active">
+    <div class="start br-10">
         <h1>TIC-TAC-TOE</h1>
         <form class="flex flex-col">
         <div class="playerInput flex">
@@ -35,9 +35,10 @@
     </form>
     </div>
 
-    <div class="game active flex flex-col">
+    <div class="game flex-col">
 
-        <div class="player1box score flex flex-col br-10">
+        <div class="playerBoxes">
+            <div class="player1box score flex flex-col br-10">
             <h1 id="p1name">Player 1</h1>
             <p id="p1score">0</p>
             <p id="p1token">🔥</p>
@@ -48,7 +49,8 @@
             <p id="p2score">0</p>
             <p id="p2token">🌴</p>
         </div>
-    
+        </div>
+
 
         <div class="container">
             <div class="box br-10" data-index="0"></div>

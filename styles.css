@@ -51,7 +51,7 @@ body {
     background-color: rgb(30, 206, 255);
     padding: 20px;
     height: 60vh;
-    width: max(350px, 50vw);
+    width: max(400px, 60vw);
     position: relative;
 }
 
@@ -115,7 +115,7 @@ body, .game {
 
 .container {
     margin-top: 3%;
-    width: min(750px, 50vw);
+    width: min(800px, 50vw);
     display: grid;
     grid-template-columns: repeat(3,1fr);
     grid-template-rows: repeat(3,1fr);
@@ -146,6 +146,7 @@ body, .game {
     width: 15vw;
     height: 40vh;
     position: absolute;
+    top: 30%;
     text-align: center;
     justify-content: center;
 }
@@ -165,4 +166,22 @@ body, .game {
 
 .player2box {
     right: 5%;
+}
+
+@media screen and (max-width: 1150px)
+{
+    .score {
+        margin-top: 250px;
+        width: 200px;
+        position: static;
+    }
+
+    .container {
+        width: min(800px, 90vw);
+    }
+
+    .playerBoxes {
+        display: flex;
+        gap: 30px;
+    }
 }
